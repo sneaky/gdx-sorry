@@ -13,6 +13,8 @@ public class Board {
     Texture pieceTextures;
     TextureAtlas pieceAtlas;
 
+    int blueScore, yellowScore, greenScore, redScore;
+
     Piece pieces[][];
 
     HashMap<String, Integer> spriteIndexMap; // maps sprite to index
@@ -231,6 +233,7 @@ public class Board {
                 pieces[p.getX()][p.getY()] = null;
                 p.setX(2);
                 p.setY(9);
+                blueScore++;
             }
         } else { // color agnostic cases
             colorAgnosticMove(p, distance);
@@ -270,6 +273,7 @@ public class Board {
                 pieces[p.getX()][p.getY()] = null;
                 p.setX(9);
                 p.setY(13);
+                yellowScore++;
             }
         } else { // color agnostic cases
             colorAgnosticMove(p, distance);
@@ -310,6 +314,7 @@ public class Board {
                     pieces[p.getX()][p.getY()] = null;
                     p.setX(13);
                     p.setY(6);
+                    greenScore++;
                 }
         } else { // color agnostic cases
             colorAgnosticMove(p, distance);
@@ -350,6 +355,7 @@ public class Board {
                 pieces[p.getX()][p.getY()] = null;
                 p.setX(6);
                 p.setY(2);
+                redScore++;
             }
         } else { // color agnostic cases
             colorAgnosticMove(p, distance);

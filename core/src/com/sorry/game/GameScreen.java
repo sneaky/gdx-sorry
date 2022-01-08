@@ -52,6 +52,27 @@ public class GameScreen implements Screen {
         game.batch.begin();
         game.board.draw(game.batch);
 
+        // TODO: create method to return score in Board class
+        if (game.board.blueScore > 0) {
+            game.setScreen(new GameOverScreen(game, PieceColor.BLUE));
+            dispose();
+        }
+        // TODO: getting error "malloc(): unsorted double linked list corrupted" when we try to go to game over...
+        if (game.board.yellowScore > 0) {
+            game.setScreen(new GameOverScreen(game, PieceColor.YELLOW));
+            dispose();
+        }
+
+        if (game.board.greenScore > 0) {
+            game.setScreen(new GameOverScreen(game, PieceColor.GREEN));
+            dispose();
+        }
+
+        if (game.board.redScore > 0) {
+            game.setScreen(new GameOverScreen(game, PieceColor.RED));
+            dispose();
+        }
+
         // TODO:using isKeyJustPressed for testing
         if (Gdx.input.isKeyJustPressed(Input.Keys.B)) {
             Piece p = (Piece) game.board.pieceMap.get("blue"); // TODO: change to currentTurn
@@ -124,6 +145,6 @@ public class GameScreen implements Screen {
     public void dispose() {
         map.dispose();
         renderer.dispose();
-        game.dispose();
+        //game.dispose();
     }
 }

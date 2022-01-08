@@ -2,21 +2,23 @@ package com.sorry.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.ScreenUtils;
 
+public class GameOverScreen implements Screen {
 
-
-public class MainMenuScreen implements Screen {
     private Sorry game;
     private OrthographicCamera camera;
+    PieceColor winner;
 
-    public MainMenuScreen(Sorry sorry) {
-        game = sorry;
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 512, 512);
+    public GameOverScreen(Sorry sorry, PieceColor c) {
+        this.winner = c;
+        this.game = sorry;
+        this.camera = new OrthographicCamera();
+        this.camera.setToOrtho(false, 512, 512);
+        // now that the game is over, create a new board to keep playing
+        game.board = new Board(512, game.board.pieceAtlas);
     }
-
     /**
      * Called when this screen becomes the current screen for a {@link Game}.
      */
@@ -38,13 +40,14 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "Lets play Sorry!", 100, 150);
-        game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
+        game.font.draw(game.batch, winner + " wins!", 100, 150);
+        game.font.draw(game.batch, "Tap anywhere to return to the main menu.", 100, 100);
         game.batch.end();
 
+        // TODO: got error "corrupted double-linked list" when trying to return to main menu
         if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen(game));
-            //dispose();
+            game.setScreen(new MainMenuScreen(game));
+            dispose();
         }
     }
 
@@ -87,6 +90,6 @@ public class MainMenuScreen implements Screen {
      */
     @Override
     public void dispose() {
-
+        //game.dispose(); //TODO: this breaks things bad
     }
 }

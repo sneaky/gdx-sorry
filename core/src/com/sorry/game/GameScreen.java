@@ -53,14 +53,34 @@ public class GameScreen implements Screen {
         game.board.draw(game.batch);
 
         // TODO:using isKeyJustPressed for testing
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.B)) {
             Piece p = (Piece) game.board.pieceMap.get("blue"); // TODO: change to currentTurn
-            game.board.move(p, 7); // TODO: having problems if distance > 7
+            game.board.move(p, randomRoll());
+            game.board.draw(game.batch);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Y)) {
+            Piece p = (Piece) game.board.pieceMap.get("yellow");
+            game.board.move(p, randomRoll());
+            game.board.draw(game.batch);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.G)) {
+            Piece p = (Piece) game.board.pieceMap.get("green");
+            game.board.move(p, randomRoll());
+            game.board.draw(game.batch);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            Piece p = (Piece) game.board.pieceMap.get("red");
+            game.board.move(p, randomRoll());
             game.board.draw(game.batch);
         }
 
         game.batch.end();
 
+    }
+
+    // used for testing, returns a random int between 1 and 12
+    private int randomRoll() {
+        return (int) ((Math.random() * (12 - 1)) + 1);
     }
 
     /**
